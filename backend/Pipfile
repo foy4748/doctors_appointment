@@ -6,8 +6,11 @@ name = "pypi"
 [packages]
 django = "*"
 django-restframework = "*"
+djangorestframework = "*"
+django-filter = "*"
 
 [dev-packages]
+jedi-language-server = "*"
 
 [requires]
 python_version = "3.11"
