@@ -6,12 +6,20 @@ import {increment, decrement} from '@/redux/slices/counterSlice'
 import Image from 'next/image'
 import styles from './page.module.css'
 import {useState} from 'react';
+import client from '@/axiosClient';
 
 export default function Home() {
 	const count = useAppSelector((state) => state.counter.value)
 	const dispatch1 = useAppDispatch()
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
+	const handleSubmit = async (e: any) => {
+		e.preventDefault()
+		const res = await client.post('/login/', {
+			username: "foy4748", password: "test1029"
+		})
+		console.log(res)
+	}
 	return (
 		<section>
 
@@ -30,7 +38,7 @@ export default function Home() {
 			>
 				Decrement
 			</Button>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<TextField
 					label="Username"
 					variant="outlined"

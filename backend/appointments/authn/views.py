@@ -26,7 +26,7 @@ class UserLoginView(APIView):
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.check_user(request.data)
+            user = serializer.check_user(clean_data=request.data)
             login(request, user)
             token, created = Token.objects.get_or_create(user=user)
             return Response({'token': token.key})
