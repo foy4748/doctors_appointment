@@ -19,6 +19,7 @@ from django.urls import path, include
 
 # Importing ViewSets
 from booking.views import BookingViewSet, TimeSlotViewSet
+from authn.views import UserRegistrationView, UserLoginView
 
 from rest_framework import routers
 
@@ -27,7 +28,12 @@ router = routers.DefaultRouter()
 router.register(r'bookings', BookingViewSet)
 router.register(r'time-slots', TimeSlotViewSet)
 
+# router.register(r'register', UserRegistrationView, basename='user-registration')
+# router.register(r'login', UserLoginView, basename='user-login')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('register/', UserRegistrationView.as_view(), name='userRegistration'),
+    path('login/', UserLoginView.as_view(), name='userLogin'),
 ]
