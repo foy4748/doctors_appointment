@@ -16,9 +16,11 @@ class UserRegistrationView(APIView):
     permission_classes = (permissions.AllowAny,)
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
+        if serializer.is_valid():
+            user = serializer.create(clean_data=request.data)
             if user:
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class UserLoginView(APIView):
     permission_classes = (permissions.AllowAny,)
