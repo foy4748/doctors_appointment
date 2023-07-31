@@ -19,7 +19,6 @@ class UserLoginSerializer(serializers.Serializer):
     password = serializers.CharField()
 
     def check_user(self, clean_data):
-        print(clean_data)
         user = authenticate(username=clean_data['username'], password=clean_data['password'])
         if not user:
             raise serializers.ValidationError("Invalid credentials. Please try again.")

@@ -6,7 +6,10 @@ const client = axios.create({
 	withCredentials: true,
 	timeout: 3000,
 	xsrfCookieName: "csrftoken",
-	xsrfHeaderName: 'X-CSRFToken'
+	xsrfHeaderName: 'X-CSRFTOKEN',
+	headers: {
+		Authorization: `Token ${typeof window !== 'undefined' ? window.localStorage.getItem('token') : ''}`
+	}
 });
 
 export default client;
