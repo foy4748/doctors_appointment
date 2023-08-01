@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from rest_framework import generics
 from .serializers import UserRegistrationSerializer,UserLoginSerializer
-from rest_framework.authentication import SessionAuthentication
+from rest_framework.authentication import TokenAuthentication
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -24,7 +24,7 @@ class UserRegistrationView(APIView):
 
 class UserLoginView(APIView):
     permission_classes = (permissions.AllowAny,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (TokenAuthentication,)
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():

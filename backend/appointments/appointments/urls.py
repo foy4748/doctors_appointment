@@ -25,7 +25,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 
-router.register(r'bookings', BookingViewSet)
+#router.register(r'bookings', BookingViewSet)
 router.register(r'time-slots', TimeSlotViewSet)
 
 # router.register(r'register', UserRegistrationView, basename='user-registration')
@@ -36,4 +36,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('register/', UserRegistrationView.as_view(), name='userRegistration'),
     path('login/', UserLoginView.as_view(), name='userLogin'),
+    path('bookings/', BookingViewSet.as_view(), name='bookings'),
 ]
