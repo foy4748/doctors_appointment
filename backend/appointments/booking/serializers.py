@@ -1,24 +1,20 @@
 from rest_framework import  serializers
 from .models import Booking, TimeSlot
+from rest_framework.validators import UniqueForDateValidator
 
 class BookingSerializer(serializers.ModelSerializer):
-    time_slot = serializers.IntegerField()
+    time_slot = serializers.IntegerField(required=True)
     date = serializers.DateField(required=True)
     class Meta:
         model = Booking
         fields = ['time_slot', 'date']
-
-    def validate(self, request):
-        time_slot = request.get('time_slot')
-        date = request.get('date')
-        print(time_slot, date)
-        # Check if there is already a booking for the same user and date
-        existing_booking = Booking.objects.filter(time_slot=time_slot, date=date).exists()
-        if existing_booking:
-            print("INVALID")
-            raise serializers.ValidationError("A booking for this date already exists.")
-
-        return request
+        validators = [
+                UniqueForDateValidator(
+                    queryset = Booking.objects.all(),
+                    field = 'time_slot',
+                    date_field = 'date'
+                    )
+                ]
 
 class TimeSlotSerializer(serializers.ModelSerializer):
     class Meta:
